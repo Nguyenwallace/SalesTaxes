@@ -1,4 +1,4 @@
-#mother class product
+#Super class product 
 class Product
 	attr_accessor :category, :title, :quantity, :price, :imported
 	def initialize (category, title, quantity, price, imported)
@@ -12,7 +12,7 @@ class Product
 		if (@imported =="imported")
 			0.05
 		else 
-			0.00
+			0.0
 		end
 	end
 	#generate items depends on category (food, medical, book are special, others are normal)
