@@ -72,7 +72,7 @@ class Bill
 		totalTax = 0
 		@items.each { 
 			|item|
-			tax = item.price*(item.taxRate+item.import)
+			tax = item.price*(item.taxRate+item.importRate)
 			#round up the tax before adding value to the cost
 			input_price = item.price + roundUpTax(tax)
 			total += input_price * item.quantity
