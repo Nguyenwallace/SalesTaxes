@@ -1,41 +1,50 @@
-#Super class product 
-class Product
-	attr_accessor :category, :title, :quantity, :price, :imported
-	def initialize (category, title, quantity, price, imported)
+#Super class ProductLine 
+class ProductLine
+	attr_accessor :category, :title, :quantity, :price, :import
+	def initialize (category, title, quantity, price, import)
 		@category = category
 		@title = title
 		@quantity = quantity
 		@price = price
-		@imported= imported
+		@import= import
 	end
-	def imported
-		if (@imported =="imported")
+	def import
+		if (@import =="import")
 			0.05
 		else 
-			0.0
+			0.00
 		end
 	end
 	#generate items depends on category (food, medical, book are special, others are normal)
-	def self.generate(category, title, quantity, price, imported)
+	def self.generate(category, title, quantity, price, import)
 		if (category == "book" || category == "medical" || category == "food")
-			 SpecialProduct.new(category, title, quantity, price, imported)
+			 SpecialProductLine.new(category, title, quantity, price, import)
 		else 
-			 NormalProduct.new(category, title, quantity, price, imported)
+			 NormalProductLine.new(category, title, quantity, price, import)
 		end		
 	end
 end
 
-#child class inherit Product
-class NormalProduct < Product
-	def tax
-		 0.10
+#child class inherit ProductLine
+class NormalProductLine < ProductLine
+	def taxRate
+		 Tax.normalRate
 	end
 end
 
-#child class inherit Product
-class SpecialProduct < Product
-	def tax
-		 0.00
+#child class inherit ProductLine
+class SpecialProductLine < ProductLine
+	def taxRate
+		 Tax.specialRate
+	end
+end
+
+class Tax
+	def self.normalRate
+		0.10
+	end
+	def self.specialRate
+		0.00
 	end
 end
 
@@ -47,8 +56,8 @@ class Bill
     @items = []    
  	end
 
-	def addItem (product)
-		@items.push(product)
+	def addItem (item)
+		@items.push(item)
 	end
 	#define a round up tax method based on requirement
 	def roundUpTax (tax)
@@ -60,7 +69,7 @@ class Bill
 		totalTax = 0
 		@items.each { 
 			|item|
-			tax = item.price*(item.tax+item.imported)
+			tax = item.price*(item.taxRate+item.import)
 			#round up the tax before adding value to the cost
 			input_price = item.price + roundUpTax(tax)
 			total += input_price * item.quantity
@@ -74,21 +83,21 @@ class Bill
 end
 
 bill1 = Bill.new
-bill1.addItem(Product.generate("book", "book", 1, 12.49, "no"))
-bill1.addItem(Product.generate("others", "music cd", 1, 14.99, "no"))
-bill1.addItem(Product.generate("food", "chocolate bar", 1, 0.85, "no"))
+bill1.addItem(ProductLine.generate("book", "book", 1, 12.49, "no"))
+bill1.addItem(ProductLine.generate("others", "music cd", 1, 14.99, "no"))
+bill1.addItem(ProductLine.generate("food", "chocolate bar", 1, 0.85, "no"))
 bill1.printBill
 
 bill2 = Bill.new
-bill2.addItem(Product.generate("food", " imported box of chocolates ", 1, 10.00, "imported"))
-bill2.addItem(Product.generate("others", "imported bottle of perfume ", 1, 47.50, "imported"))
+bill2.addItem(ProductLine.generate("food", " imported box of chocolates ", 1, 10.00, "import"))
+bill2.addItem(ProductLine.generate("others", "imported bottle of perfume ", 1, 47.50, "import"))
 bill2.printBill
 
 bill3 = Bill.new
-bill3.addItem(Product.generate("others", "imported bottle of perfume", 1, 27.99, "imported"))
-bill3.addItem(Product.generate("others", "bottle of perfume", 1, 18.99, "no"))
-bill3.addItem(Product.generate("medical", "packet of headache pills ", 1, 9.75, "no"))
-bill3.addItem(Product.generate("food", "box of imported chocolates ", 1, 11.25, "imported"))
+bill3.addItem(ProductLine.generate("others", "imported bottle of perfume", 1, 27.99, "import"))
+bill3.addItem(ProductLine.generate("others", "bottle of perfume", 1, 18.99, "no"))
+bill3.addItem(ProductLine.generate("medical", "packet of headache pills ", 1, 9.75, "no"))
+bill3.addItem(ProductLine.generate("food", "box of imported chocolates ", 1, 11.25, "import"))
 bill3.printBill
 
 
