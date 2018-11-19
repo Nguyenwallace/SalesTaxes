@@ -8,9 +8,9 @@ class ProductLine
 		@price = price
 		@import= import
 	end
-	def import
+	def importRate
 		if (@import =="import")
-			0.05
+			Tax.importRate
 		else 
 			0.00
 		end
@@ -45,6 +45,9 @@ class Tax
 	end
 	def self.specialRate
 		0.00
+	end
+	def self.importRate
+		0.05
 	end
 end
 
