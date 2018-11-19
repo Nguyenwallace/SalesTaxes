@@ -8,12 +8,8 @@ class ProductLine
 		@price = price
 		@import= import
 	end
-	def importRate
-		if (@import =="import")
-			Tax.importRate
-		else 
-			0.00
-		end
+	def importRate 
+		Tax.importCal(@import)
 	end
 	#generate items depends on category (food, medical, book are special, others are normal)
 	def self.generate(category, title, quantity, price, import)
@@ -38,7 +34,7 @@ class SpecialProductLine < ProductLine
 		 Tax.specialRate
 	end
 end
-
+#class Tax to handle all kinds of taxes
 class Tax
 	def self.normalRate
 		0.10
@@ -46,8 +42,12 @@ class Tax
 	def self.specialRate
 		0.00
 	end
-	def self.importRate
-		0.05
+	def self.importCal(import)
+		if (import =="import")
+			0.05
+		else 
+			0.00
+		end
 	end
 end
 
