@@ -2,7 +2,7 @@
 
 class NormalProductLine < ProductLine
 	def taxRate
-		Tax.normalRate
+		Tax::NormalRate
 	end
 end
 

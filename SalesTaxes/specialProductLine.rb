@@ -2,6 +2,6 @@
 
 class SpecialProductLine < ProductLine
 	def taxRate
-		Tax.specialRate
+		Tax::SpecialRate
 	end
 end

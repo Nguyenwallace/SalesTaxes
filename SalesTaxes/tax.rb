@@ -1,11 +1,7 @@
 #class Tax to handle all kinds of taxes
 class Tax
-	def self.normalRate
-		0.10
-	end
-	def self.specialRate
-		0.00
-	end
+	NormalRate=0.1	
+	SpecialRate =0.0		
 	def self.importCal(import)
 		if (import =="import")
 			0.05
