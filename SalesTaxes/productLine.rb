@@ -10,18 +10,19 @@ module App
   		@import= import		 
   	end
   	def importRate 
-  		App::Tax.importCal(@import)
+  		Tax.importCal(@import)
   	end
   	#generate items depends on category (food, medical, book are special, others are normal)
   	def self.generate(category, title, quantity, price, import)
   		if (category == "book" || category == "medical" || category == "food")
-  			App::SpecialProductLine.new(category, title, quantity, price, import)
+  			SpecialProductLine.new(category, title, quantity, price, import)
   		else 
-  			App::NormalProductLine.new(category, title, quantity, price, import)
+  			NormalProductLine.new(category, title, quantity, price, import)
   		end		
   	end
   end
 end 
-  require './normalProductLine'
-  require './specialProductLine'
-  require './tax'
+
+require './normalProductLine'
+require './specialProductLine'
+require './tax'

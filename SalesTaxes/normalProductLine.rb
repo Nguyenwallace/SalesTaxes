@@ -2,7 +2,7 @@ module App
   #child class inherit ProductLine
   class NormalProductLine < ProductLine
   	def taxRate
-  	 App::Tax::NormalRate
+  	 Tax::NormalRate
   	end
   end
 end
