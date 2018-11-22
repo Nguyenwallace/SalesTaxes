@@ -1,13 +1,11 @@
+require './product'
 module App
   #Super class ProductLine 
-  class ProductLine
+  class ProductLine < Product
   	attr_accessor :category, :title, :quantity, :price, :import
   	def initialize (category, title, quantity, price, import)
-  		@category = category
-  		@title = title
-  		@quantity = quantity
-  		@price = price
-  		@import= import		 
+      super(category, title, price, import)
+  		@quantity = quantity	 
   	end
   	def importRate 
   		Tax.importCal(@import)
